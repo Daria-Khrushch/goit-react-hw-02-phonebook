@@ -1,7 +1,9 @@
 import React from 'react';
 import shortid from 'shortid';
 import ContactForm from '../ContactForm/ContactForm';
-import ContactsList from '../App/ContactList/ContactList';
+import ContactsList from '../ContactList/ContactList';
+import Filter from '../Filter/Filter';
+import s from './Phonebook.module.css';
 
 class Phonebook extends React.Component {
   state = {
@@ -36,26 +38,29 @@ class Phonebook extends React.Component {
     }));
   };
 
+  changeFilter = event => {
+    this.setState({ filter: event.currentTarget.value });
+  };
+
+  getFilteredContacts() {
+    return this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase()),
+    );
+  }
+
   render() {
-    const { contacts } = this.state;
+    const { filter } = this.state;
+    const visibleContacts = this.getFilteredContacts();
 
     return (
-      //  <div>
-      //   <h1>Phonebook</h1>
-      //   <ContactForm ... />
-
-      //   <h2>Contacts</h2>
-      //   <Filter ... />
-      //   <ContactList ... />
-      // </div>
-
-      <div>
+      <div className={s.container}>
         <h1>Phonebook</h1>
         <ContactForm addContact={this.addContact} />
 
         <h2>Contacts</h2>
+        <Filter value={filter} onChange={this.changeFilter} />
         <ContactsList
-          contacts={contacts}
+          contacts={visibleContacts}
           onDeleteContact={this.deleteContact}
         />
       </div>
