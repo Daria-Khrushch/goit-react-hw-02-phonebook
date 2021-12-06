@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 
 const initialState = {
@@ -18,7 +19,6 @@ class ContactForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
     this.props.addContact(this.state);
     this.reset();
   };
@@ -66,5 +66,9 @@ class ContactForm extends React.Component {
     );
   }
 }
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default ContactForm;

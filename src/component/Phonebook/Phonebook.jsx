@@ -17,8 +17,6 @@ class Phonebook extends React.Component {
   };
 
   addContact = contact => {
-    console.log(contact);
-
     if (
       this.state.contacts.some(
         item => item.name.toLowerCase() === contact.name.toLowerCase(),
